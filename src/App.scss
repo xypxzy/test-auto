@@ -1,0 +1,26 @@
+.container {
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 0 10px;
+	width: 100%;
+}
+
+.header {
+	&__wrapper {
+		display: flex;
+		align-items: center;
+		gap: 15px;
+		margin: 28px 0;
+	}
+	&__title {
+		color: #d65a2c;
+		font-size: 28px;
+		font-weight: 900;
+		line-height: 1;
+	}
+	&__subtitle {
+		color: #666666;
+		font-size: 15px;
+		line-height: 1.4;
+	}
+}

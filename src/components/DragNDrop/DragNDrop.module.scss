@@ -1,0 +1,47 @@
+.drop__card {
+	border: 1px solid #ddd;
+	border-radius: 8px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	margin: 20px;
+	padding: 20px;
+	overflow: hidden;
+	display: flex;
+	justify-content: center;
+	align-items: start;
+	flex-direction: column;
+	gap: 20px;
+}
+
+.drop__container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	width: 100%;
+	height: 50dvh;
+	border: 2px dashed #ff5a5f;
+	cursor: pointer;
+}
+
+/* Highlighted Drop Zone */
+.drop__zone.dragged-over {
+	background-color: rgba(255, 90, 95, 0.2);
+}
+
+/* Drop Zone Icons */
+.drop__zone__icons {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.drop__upload__icon {
+	height: 48px; /* Increased icon size */
+	width: 48px; /* Increased icon size */
+}
+
+/* Drop Zone Text */
+.drop__zone__text {
+	text-align: center;
+	font-size: 18px;
+}
