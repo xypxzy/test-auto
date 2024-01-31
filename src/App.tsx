@@ -3,32 +3,51 @@ import { useQuery } from 'react-query'
 import './App.scss'
 import logo from './assets/logo.svg'
 import { DragNDrop } from './components/DragNDrop/DragNDrop'
+import { Results } from './components/Results/Results'
+import { CarProps } from './types/car'
 
 function App() {
 	const [uploadFiles, setUploadFiles] = useState<File[] | undefined>(undefined)
+	const { data, isLoading, refetch } = useQuery<{ data: CarProps }>(
+		'car',
+		async () => {
+			try {
+				const formData = new FormData()
 
-	const formData = new FormData()
+				if (uploadFiles && uploadFiles.length > 0) {
+					formData.append('file', uploadFiles[0])
+				}
 
-	if (uploadFiles && uploadFiles.length > 0) {
-		formData.append('file', uploadFiles[0])
-	}
+				uploadFiles?.forEach(file => formData.append('files', file))
 
-	const { isLoading, data } = useQuery('car', () =>
-		fetch(`${import.meta.env.VITE_API_URL}api/v1/vision/detect/`, {
-			method: 'POST',
-			headers: {
-				'Content-Type':
-					'multipart/form-data;boundary=------WebKitFormBoundaryWRhI5Ohu3LcGZDQs--;-----------------------------236682269234932631992033010184-----------------------------354161466125017531501556455821',
-			},
-			body: formData,
-		})
+				const response = await fetch(
+					`${import.meta.env.VITE_API_URL}api/v1/vision/detect/`,
+					{
+						method: 'POST',
+						body: formData,
+					}
+				)
+
+				if (!response.ok) {
+					throw new Error('Network response was not ok')
+				}
+
+				return response.json()
+			} catch (error) {
+				throw new Error(`Error: ${error}`)
+			}
+		},
+		{
+			enabled: false,
+		}
 	)
 
-	console.log(data)
-	console.log(formData)
+	const handleQuery = () => {
+		refetch()
+	}
 
 	return (
-		<div className='container space-y-20 my-10'>
+		<div className={`container space-y-10 my-10`}>
 			<header className='header'>
 				<div className='header__wrapper'>
 					<h1 className='ml-10'>
@@ -45,21 +64,14 @@ function App() {
 			</header>
 
 			{isLoading ? (
-				<div className='relative items-center block max-w-sm p-6 bg-white border border-gray-100 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-800 dark:hover:bg-gray-700'>
-					<h5 className='mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white opacity-20'>
-						Noteworthy technology acquisitions 2021
-					</h5>
-					<p className='font-normal text-gray-700 dark:text-gray-400 opacity-20'>
-						Here are the biggest enterprise technology acquisitions of 2021 so
-						far, in reverse chronological order.
-					</p>
+				<div className='relative h-[70dvh]'>
 					<div
 						role='status'
 						className='absolute -translate-x-1/2 -translate-y-1/2 top-2/4 left-1/2'
 					>
 						<svg
 							aria-hidden='true'
-							className='w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600'
+							className='w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-blue-800'
 							viewBox='0 0 100 101'
 							fill='none'
 							xmlns='http://www.w3.org/2000/svg'
@@ -76,8 +88,15 @@ function App() {
 						<span className='sr-only'>Loading...</span>
 					</div>
 				</div>
+			) : !data || !uploadFiles ? (
+				<>
+					<DragNDrop
+						setUploadFiles={setUploadFiles}
+						handleQuery={handleQuery}
+					/>
+				</>
 			) : (
-				<DragNDrop setUploadFiles={setUploadFiles} />
+				<Results carData={data.data} />
 			)}
 		</div>
 	)

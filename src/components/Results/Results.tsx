@@ -1,134 +1,106 @@
+import { CarProps } from '@/types/car'
 import styles from './Results.module.scss'
 
-export function Results() {
+interface ResultsProps {
+	carData: CarProps
+}
+
+export function Results({ carData }: ResultsProps) {
 	return (
 		<section className={`${styles.result__card} text-gray-600 body-font`}>
-			<div className='container px-5 py-24 mx-auto flex flex-wrap'>
-				<div className='lg:w-1/2 w-full mb-10 lg:mb-0 rounded-lg overflow-hidden'>
+			<div className='container px-5 mx-auto flex flex-col flex-wrap'>
+				<div className='flex flex-wrap w-full'>
+					<div className='lg:w-3/6 md:w-2/3 md:pr-10 md:py-6'>
+						<div className='flex relative pb-6'>
+							<div className='flex-grow pl-4 '>
+								<h2 className='font-medium title-font text-md text-gray-900 mb-1 tracking-wider'>
+									Бренд машины
+								</h2>
+								<p className='leading-relaxed'>{carData.car_brand}</p>
+							</div>
+							<div className='pl-4'>
+								<h2 className='font-medium title-font text-md text-gray-900 mb-1 tracking-wider'>
+									Точность определения
+								</h2>
+								<p className='leading-relaxed'>
+									{(carData.car_brand_score * 100).toFixed(3)}%
+								</p>
+							</div>
+						</div>
+						<div className='flex relative pb-6'>
+							<div className='flex-grow pl-4 '>
+								<h2 className='font-medium title-font text-md text-gray-900 mb-1 tracking-wider'>
+									Цвет машины
+								</h2>
+								<p className='leading-relaxed'>{carData.car_color}</p>
+							</div>
+							<div className=' pl-4'>
+								<h2 className='font-medium title-font text-md text-gray-900 mb-1 tracking-wider'>
+									Точность определения
+								</h2>
+								<p className='leading-relaxed'>
+									{(carData.car_color_score * 100).toFixed(3)}%
+								</p>
+							</div>
+						</div>
+						<div className='flex relative pb-6'>
+							<div className='flex-grow pl-4 '>
+								<h2 className='font-medium title-font text-md text-gray-900 mb-1 tracking-wider'>
+									Кузов машины
+								</h2>
+								<p className='leading-relaxed'>{carData.car_type_body}</p>
+							</div>
+							<div className=' pl-4'>
+								<h2 className='font-medium title-font text-md text-gray-900 mb-1 tracking-wider'>
+									Точность определения
+								</h2>
+								<p className='leading-relaxed'>
+									{(carData.car_type_body_score * 100).toFixed(3)}%
+								</p>
+							</div>
+						</div>
+						<div className='flex relative pb-6'>
+							<div className='flex-grow pl-4 '>
+								<h2 className='font-medium title-font text-md text-gray-900 mb-1 tracking-wider'>
+									Страна
+								</h2>
+								<p className='leading-relaxed'>
+									{carData.license_plate_country}
+								</p>
+							</div>
+							<div className=' pl-4'>
+								<h2 className='font-medium title-font text-md text-gray-900 mb-1 tracking-wider'>
+									Точность определения
+								</h2>
+								<p className='leading-relaxed'>
+									{(carData.license_plate_country_score * 100).toFixed(3)}%
+								</p>
+							</div>
+						</div>
+						<div className='flex relative pb-6'>
+							<div className='flex-grow pl-4 '>
+								<h2 className='font-medium title-font text-md text-gray-900 mb-1 tracking-wider'>
+									Страна
+								</h2>
+								<p className='leading-relaxed'>
+									{carData.license_plate_number}
+								</p>
+							</div>
+							<div className=' pl-4'>
+								<h2 className='font-medium title-font text-md text-gray-900 mb-1 tracking-wider'>
+									Точность определения
+								</h2>
+								<p className='leading-relaxed'>
+									{(carData.license_plate_number_score * 100).toFixed(3)}%
+								</p>
+							</div>
+						</div>
+					</div>
 					<img
-						alt='feature'
-						className='object-cover object-center h-full w-full'
-						src='https://dummyimage.com/460x500'
+						className='lg:w-3/6 md:w-1/3 object-contain object-center rounded-lg md:mt-0 mt-12'
+						src={carData.url}
+						alt='step'
 					/>
-				</div>
-				<div className='flex flex-col flex-wrap lg:py-6 -mb-10 lg:w-1/2 lg:pl-12 lg:text-left text-center'>
-					<div className='flex flex-col mb-10 lg:items-start items-center'>
-						<div className='w-12 h-12 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 mb-5'>
-							<svg
-								fill='none'
-								stroke='currentColor'
-								stroke-linecap='round'
-								stroke-linejoin='round'
-								stroke-width='2'
-								className='w-6 h-6'
-								viewBox='0 0 24 24'
-							>
-								<path d='M22 12h-4l-3 9L9 3l-3 9H2'></path>
-							</svg>
-						</div>
-						<div className='flex-grow'>
-							<h2 className='text-gray-900 text-lg title-font font-medium mb-3'>
-								Shooting Stars
-							</h2>
-							<p className='leading-relaxed text-base'>
-								Blue bottle crucifix vinyl post-ironic four dollar toast vegan
-								taxidermy. Gastropub indxgo juice poutine.
-							</p>
-							<a className='mt-3 text-indigo-500 inline-flex items-center'>
-								Learn More
-								<svg
-									fill='none'
-									stroke='currentColor'
-									stroke-linecap='round'
-									stroke-linejoin='round'
-									stroke-width='2'
-									className='w-4 h-4 ml-2'
-									viewBox='0 0 24 24'
-								>
-									<path d='M5 12h14M12 5l7 7-7 7'></path>
-								</svg>
-							</a>
-						</div>
-					</div>
-					<div className='flex flex-col mb-10 lg:items-start items-center'>
-						<div className='w-12 h-12 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 mb-5'>
-							<svg
-								fill='none'
-								stroke='currentColor'
-								stroke-linecap='round'
-								stroke-linejoin='round'
-								stroke-width='2'
-								className='w-6 h-6'
-								viewBox='0 0 24 24'
-							>
-								<circle cx='6' cy='6' r='3'></circle>
-								<circle cx='6' cy='18' r='3'></circle>
-								<path d='M20 4L8.12 15.88M14.47 14.48L20 20M8.12 8.12L12 12'></path>
-							</svg>
-						</div>
-						<div className='flex-grow'>
-							<h2 className='text-gray-900 text-lg title-font font-medium mb-3'>
-								The Catalyzer
-							</h2>
-							<p className='leading-relaxed text-base'>
-								Blue bottle crucifix vinyl post-ironic four dollar toast vegan
-								taxidermy. Gastropub indxgo juice poutine.
-							</p>
-							<a className='mt-3 text-indigo-500 inline-flex items-center'>
-								Learn More
-								<svg
-									fill='none'
-									stroke='currentColor'
-									stroke-linecap='round'
-									stroke-linejoin='round'
-									stroke-width='2'
-									className='w-4 h-4 ml-2'
-									viewBox='0 0 24 24'
-								>
-									<path d='M5 12h14M12 5l7 7-7 7'></path>
-								</svg>
-							</a>
-						</div>
-					</div>
-					<div className='flex flex-col mb-10 lg:items-start items-center'>
-						<div className='w-12 h-12 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 mb-5'>
-							<svg
-								fill='none'
-								stroke='currentColor'
-								stroke-linecap='round'
-								stroke-linejoin='round'
-								stroke-width='2'
-								className='w-6 h-6'
-								viewBox='0 0 24 24'
-							>
-								<path d='M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2'></path>
-								<circle cx='12' cy='7' r='4'></circle>
-							</svg>
-						</div>
-						<div className='flex-grow'>
-							<h2 className='text-gray-900 text-lg title-font font-medium mb-3'>
-								Neptune
-							</h2>
-							<p className='leading-relaxed text-base'>
-								Blue bottle crucifix vinyl post-ironic four dollar toast vegan
-								taxidermy. Gastropub indxgo juice poutine.
-							</p>
-							<a className='mt-3 text-indigo-500 inline-flex items-center'>
-								Learn More
-								<svg
-									fill='none'
-									stroke='currentColor'
-									stroke-linecap='round'
-									stroke-linejoin='round'
-									stroke-width='2'
-									className='w-4 h-4 ml-2'
-									viewBox='0 0 24 24'
-								>
-									<path d='M5 12h14M12 5l7 7-7 7'></path>
-								</svg>
-							</a>
-						</div>
-					</div>
 				</div>
 			</div>
 		</section>

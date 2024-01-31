@@ -1,12 +1,14 @@
 import { useEffect } from 'react'
 import { useDropzone } from 'react-dropzone'
+import { Button } from '../ui/button'
 import styles from './DragNDrop.module.scss'
 
 interface DragNDropProps {
 	setUploadFiles: (file: File[]) => void
+	handleQuery: () => void
 }
 
-export function DragNDrop({ setUploadFiles }: DragNDropProps) {
+export function DragNDrop({ setUploadFiles, handleQuery }: DragNDropProps) {
 	const { acceptedFiles, getRootProps, getInputProps } = useDropzone()
 
 	const files = acceptedFiles.map(file => (
@@ -47,6 +49,9 @@ export function DragNDrop({ setUploadFiles }: DragNDropProps) {
 					</>
 				)}
 			</aside>
+			<div className='flex w-full justify-end'>
+				<Button onClick={handleQuery}>Искать</Button>
+			</div>
 		</section>
 	)
 }
