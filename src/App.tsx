@@ -96,7 +96,7 @@ function App() {
 					/>
 				</>
 			) : (
-				<Results carData={data.data} />
+				<Results carData={data.data} uploadFiles={uploadFiles} />
 			)}
 		</div>
 	)

@@ -3,9 +3,10 @@ import styles from './Results.module.scss'
 
 interface ResultsProps {
 	carData: CarProps
+	uploadFiles: File[]
 }
 
-export function Results({ carData }: ResultsProps) {
+export function Results({ carData, uploadFiles }: ResultsProps) {
 	return (
 		<section className={`${styles.result__card} text-gray-600 body-font`}>
 			<div className='container px-5 mx-auto flex flex-col flex-wrap'>
@@ -80,7 +81,7 @@ export function Results({ carData }: ResultsProps) {
 						<div className='flex relative pb-6'>
 							<div className='flex-grow pl-4 '>
 								<h2 className='font-medium title-font text-md text-gray-900 mb-1 tracking-wider'>
-									Страна
+									Номер машины
 								</h2>
 								<p className='leading-relaxed'>
 									{carData.license_plate_number}
@@ -98,7 +99,7 @@ export function Results({ carData }: ResultsProps) {
 					</div>
 					<img
 						className='lg:w-3/6 md:w-1/3 object-contain object-center rounded-lg md:mt-0 mt-12'
-						src={carData.url}
+						src={URL.createObjectURL(uploadFiles[0])}
 						alt='step'
 					/>
 				</div>
